@@ -1,0 +1,54 @@
+/*
+   Admin Menu
+*/
+
+#adminmenu #menu-posts-employee .wp-menu-image {
+	background-image: url("../images/menu.png");
+	background-position: 0px -3px;
+}
+#adminmenu #menu-posts-employee:hover .wp-menu-image, #adminmenu #menu-posts-employee.wp-menu-open .wp-menu-image {
+	background-position: 0px -35px;
+}
+#adminmenu #menu-posts-employee .wp-submenu-wrap li a span.current {
+	color: #333;
+	font-weight: bold;
+}
+#icon-edit.icon32-posts-employee {
+	background-image: url("../images/screen.png");
+	background-position: -4px -6px;
+}
+
+/*
+   Writepanel
+*/
+
+#employees-information-box {
+	overflow: hidden;
+}
+#employees-information-box .form-fieldset {
+	display: block;
+	margin: 0px;
+	font-size: 12px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	line-height: 24px;
+	clear: both;
+	overflow: hidden;
+	position: relative;
+}
+#employees-information-box .form-fieldset span {
+	float: left;
+	width: 90px;
+	padding: 0;
+	vertical-align: middle;
+}
+#employees-information-box .form-fieldset input,
+#employees-information-box .form-fieldset select,
+#employees-information-box .form-fieldset .input-group {
+	float: left;
+	width: 166px;
+}
+#employees-information-box .form-fieldset .input-group {
+	position: relative;
+	display: block;
+}
