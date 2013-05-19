@@ -2,18 +2,18 @@
    Admin Menu
 */
 
-#adminmenu #menu-posts-employee .wp-menu-image {
+#adminmenu #menu-posts-person .wp-menu-image {
 	background-image: url("../images/menu.png");
 	background-position: 0px -3px;
 }
-#adminmenu #menu-posts-employee:hover .wp-menu-image, #adminmenu #menu-posts-employee.wp-menu-open .wp-menu-image {
+#adminmenu #menu-posts-person:hover .wp-menu-image, #adminmenu #menu-posts-person.wp-menu-open .wp-menu-image {
 	background-position: 0px -35px;
 }
-#adminmenu #menu-posts-employee .wp-submenu-wrap li a span.current {
+#adminmenu #menu-posts-person .wp-submenu-wrap li a span.current {
 	color: #333;
 	font-weight: bold;
 }
-#icon-edit.icon32-posts-employee {
+#icon-edit.icon32-posts-person {
 	background-image: url("../images/screen.png");
 	background-position: -4px -6px;
 }
@@ -22,10 +22,10 @@
    Writepanel
 */
 
-#employees-information-box {
+#people-information-box {
 	overflow: hidden;
 }
-#employees-information-box .form-fieldset {
+#people-information-box .form-fieldset {
 	display: block;
 	margin: 0px;
 	font-size: 12px;
@@ -36,19 +36,22 @@
 	overflow: hidden;
 	position: relative;
 }
-#employees-information-box .form-fieldset span {
+#people-information-box .form-fieldset label {
 	float: left;
-	width: 90px;
+	width: 33%;
 	padding: 0;
 	vertical-align: middle;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
-#employees-information-box .form-fieldset input,
-#employees-information-box .form-fieldset select,
-#employees-information-box .form-fieldset .input-group {
-	float: left;
-	width: 166px;
+#people-information-box .form-fieldset input,
+#people-information-box .form-fieldset select,
+#people-information-box .form-fieldset .input-group {
+	float: right;
+	width: 65%;
 }
-#employees-information-box .form-fieldset .input-group {
+#people-information-box .form-fieldset .input-group {
 	position: relative;
 	display: block;
 }
