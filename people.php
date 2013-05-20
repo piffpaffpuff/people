@@ -139,7 +139,7 @@ class People {
 			'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'post-formats'),
 			'capability_type' => 'post',
 			'rewrite' => array('slug' => apply_filters('people_rewrite_slug', $this->slug)),
-			'menu_position' => 15,
+			'menu_position' => 9,
 			'has_archive' => true
 		); 
 	
