@@ -223,10 +223,11 @@ class People {
 		// Use nonce for verification
 		wp_nonce_field(self::$plugin_basename, 'people_nonce');
 		?>
-		<p class="form-fieldset"><label><span><?php _e('Telephone', 'people'); ?></span></label><input type="text" class="regular-text" name="people[telephone]" value="<?php echo $this->get_people_meta($post->ID, 'telephone'); ?>" title="<?php _e('Telephone', 'people'); ?>"></p>
-		<p class="form-fieldset"><label><span><?php _e('E-Mail', 'people'); ?></span></label><input type="text" class="regular-text" name="people[email]" value="<?php echo $this->get_people_meta($post->ID, 'email'); ?>" title="<?php _e('E-Mail', 'people'); ?>"></p>
-		<p class="form-fieldset"><label><span><?php _e('Facebook', 'people'); ?></span></label><input type="text" class="code" name="people[facebook]" value="<?php echo $this->get_people_meta($post->ID, 'facebook'); ?>" title="<?php _e('Facebook', 'people'); ?>" placeholder="http://"></p>
-		<p class="form-fieldset"><label><span><?php _e('Twitter', 'people'); ?></span></label><input type="text" class="code" name="people[twitter]" value="<?php echo $this->get_people_meta($post->ID, 'twitter'); ?>" title="<?php _e('Twitter', 'people'); ?>" placeholder="http://"></p>
+		<p class="form-fieldset"><label><span><?php _e('Telephone', 'people'); ?></span></label><input type="text" class="regular-text" name="people[telephone]" value="<?php echo $this->get_person_meta($post->ID, 'telephone'); ?>" title="<?php _e('Telephone', 'people'); ?>"></p>
+		<p class="form-fieldset"><label><span><?php _e('E-Mail', 'people'); ?></span></label><input type="text" class="regular-text" name="people[email]" value="<?php echo $this->get_person_meta($post->ID, 'email'); ?>" title="<?php _e('E-Mail', 'people'); ?>"></p>
+		<p class="form-fieldset"><label><span><?php _e('Facebook', 'people'); ?></span></label><input type="text" class="regular-text code" name="people[facebook]" value="<?php echo $this->get_person_meta($post->ID, 'facebook'); ?>" title="<?php _e('Facebook', 'people'); ?>" placeholder="http://"></p>
+		<p class="form-fieldset"><label><span><?php _e('Twitter', 'people'); ?></span></label><input type="text" class="regular-text code" name="people[twitter]" value="<?php echo $this->get_person_meta($post->ID, 'twitter'); ?>" title="<?php _e('Twitter', 'people'); ?>" placeholder="http://"></p>
+		<p class="form-fieldset"><label><span><?php _e('Website', 'people'); ?></span></label><input type="text" class="regular-text code" name="people[website]" value="<?php echo $this->get_person_meta($post->ID, 'website'); ?>" title="<?php _e('Website', 'people'); ?>" placeholder="http://"></p>
 		<?php
 	}
 	
@@ -398,6 +399,16 @@ if(!function_exists('get_person_facebook')) {
 function get_person_facebook() {
 	global $people, $post;
 	return $people->get_person_meta($post->ID, 'facebook');
+}
+}
+
+/**
+ * Get the website url
+ */
+if(!function_exists('get_person_website')) {
+function get_person_website() {
+	global $people, $post;
+	return $people->get_person_meta($post->ID, 'website');
 }
 }
 
