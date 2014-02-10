@@ -1,21 +1,9 @@
 /*
-   Admin Menu
+   Admin Menu Icons
 */
 
-#adminmenu #menu-posts-person .wp-menu-image {
-	background-image: url("../images/menu.png");
-	background-position: 0px -3px;
-}
-#adminmenu #menu-posts-person:hover .wp-menu-image, #adminmenu #menu-posts-person.wp-menu-open .wp-menu-image {
-	background-position: 0px -35px;
-}
-#adminmenu #menu-posts-person .wp-submenu-wrap li a span.current {
-	color: #333;
-	font-weight: bold;
-}
-#icon-edit.icon32-posts-person {
-	background-image: url("../images/screen.png");
-	background-position: -4px -6px;
+#adminmenu #menu-posts-person .wp-menu-image:before { 
+	content: "\f337";
 }
 
 /*
