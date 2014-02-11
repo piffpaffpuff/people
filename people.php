@@ -214,6 +214,16 @@ class People {
 	 */
 	public function add_boxes() {			
 		add_meta_box('people-information-box', __('Information', 'people'), array($this, 'create_box_information'), self::$post_type, 'side', 'default');
+		
+		// create the metabox for other post types
+		$args = array( 
+			'public' => true,
+			'show_ui' => true
+		);
+		$post_types = get_post_types($args);
+		foreach($post_types as $post_type) {
+			add_meta_box('people-post-type-box', __('People', 'projects'), array($this, 'create_box_people'), $post_type, 'side', 'default');
+		}
 	}
 	
 	/**
@@ -230,6 +240,29 @@ class People {
 		<p class="form-fieldset"><label><span><?php _e('Website', 'people'); ?></span></label><input type="text" class="regular-text code" name="people[website]" value="<?php echo $this->get_person_meta($post->ID, 'website'); ?>" title="<?php _e('Website', 'people'); ?>" placeholder="http://"></p>
 		<?php
 	}
+		
+	/**
+	 * Create the box people on other post types
+	 */
+	public function create_box_people($post, $metabox) {
+		// query all people
+		$people = $this->get_people();
+		$relation = $this->get_person_meta($post->ID, 'relation');
+
+		// Use nonce for verification
+		wp_nonce_field(self::$plugin_basename, 'people_nonce');
+		?>
+		<div>
+			<ul>
+			<input value="" type="hidden" name="people[relation]">
+			<?php foreach($people as $person) : ?>
+				<li><label class="selectit"><input value="<?php echo $person->ID; ?>" type="checkbox" name="people[relation][]" <?php if(is_array($relation) && in_array($person->ID, $relation)) : ?> checked="checked"<?php endif; ?>><?php echo $person->post_title; ?></label></li>
+			<?php endforeach; ?>
+			</ul>
+		</div>
+		<?php
+	}
+
 	
 	/**
 	 * Save the box data
@@ -273,8 +306,13 @@ class People {
 			}
 			
 			// format the email
-			if(!is_email($_POST['people']['email'])) {
+			if(!empty($_POST['people']['email']) && !is_email($_POST['people']['email'])) {
 				$_POST['people']['email'] = null;
+			}
+			
+			// clear the people list
+			if(empty($_POST['people']['relation'])) {
+				$_POST['people']['relation'] = null;
 			}
 			
 			// Save the meta
@@ -326,6 +364,21 @@ class People {
 	
 		return;
 	}
+	
+	/**
+	 * Get people
+	 */
+	public function get_people($args = null) {	
+		// set the default args
+		$default_args = array(
+			'post_type' => self::$post_type,
+			'order' => 'ASC'
+		);
+		
+		// merge the default and additional args
+		$args = wp_parse_args($args, $default_args);		
+		return get_posts($args);
+	}
 }
 }
 
@@ -338,7 +391,39 @@ $people->load();
 /*
  * Template functions
  */
- 
+
+/**
+ * Get people
+ */
+if(!function_exists('get_people')) {
+function get_people($args = null) {
+	global $people;
+	return $people->get_people($args);
+}
+}
+
+/**
+ * Get people relations
+ */
+if(!function_exists('get_people_relation')) {
+function get_people_relation() {
+	global $people, $post;
+	$relation = $people->get_person_meta($post->ID, 'relation');
+	
+	// Return when there is no meta for this post
+	if(empty($relation)) {
+		return;
+	}
+	
+	// Get the posts based on the array of relation ids
+	$args = array(
+		'post__in' => $relation
+	);	
+	return $people->get_people($args);
+}
+}
+
+
 /**
  * Get terms
  */
