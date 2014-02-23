@@ -403,10 +403,10 @@ function get_people($args = null) {
 }
 
 /**
- * Get people relations
+ * Get the ids of the people that are related to a post
  */
-if(!function_exists('get_people_relation')) {
-function get_people_relation() {
+if(!function_exists('get_related_people')) {
+function get_related_people() {
 	global $people, $post;
 	$relation = $people->get_person_meta($post->ID, 'relation');
 	
@@ -423,6 +423,73 @@ function get_people_relation() {
 }
 }
 
+/**
+ * Get people related to a post grouped by taxonomy
+ */
+if(!function_exists('get_related_people_by_taxonomy')) {
+function get_related_people_by_taxonomy($taxonomy) {
+	global $people, $post;
+	
+	// get all occupation terms
+	$people_by_taxonomy = array();
+	$taxonomy = People::$post_type . '_' . $taxonomy;
+	$terms = get_terms($taxonomy);
+
+	if(!is_wp_error($terms)) {
+		// read the ids of the people that are related 
+		// to a post. go through the terms and assign 
+		// load the posts that are assigned to the term.
+		$relation_ids = $people->get_person_meta($post->ID, 'relation');	
+		foreach($terms as $term) {
+			// create a tax query for the posts
+			$args = array(
+				'post__in' => $relation_ids,
+				'tax_query' => array(
+		            array(
+		                'taxonomy' => $term->taxonomy,
+		                'terms' => array($term->slug),
+		                'operator' => 'IN',
+		                'field'     => 'slug'
+		            )
+		        )
+			);
+			
+			// store the result in a new object
+			$group = new stdClass;
+			$group->term = $term;
+			$group->people = $people->get_people($args);
+		    $people_by_taxonomy[] = $group;
+		}	
+	}
+	
+	return $people_by_taxonomy;
+}
+}
+
+
+/**
+ * Show people related to a post grouped by taxonomy
+ */
+if(!function_exists('related_people_by_taxonomy')) {
+function related_people_by_taxonomy($taxonomy) {
+	$people_by_taxonomy = get_related_people_by_taxonomy($taxonomy);
+
+	// show the groups
+	?>
+	<ul class="people-terms-list">
+	<?php foreach($people_by_taxonomy as $group) : ?>
+		<h3><span class="title"><?php echo $group->term->name; ?></span><span class="separation">: </span></h3>
+		<ul class="people">
+		<?php $num_total = count($group->people); ?>
+		<?php foreach($group->people as $num_index => $person) : ?>
+			<li><span class="title"><?php echo $person->post_title; ?></span><span class="separation"><?php if($num_index - 1 == $num_total) : ?>, <?php else : ?>. <?php endif; ?></span></li>
+		<?php endforeach; ?>
+		</ul>
+	<?php endforeach; ?>	
+	</ul>
+	<?php
+}
+}
 
 /**
  * Get terms
@@ -496,5 +563,4 @@ function get_person_website() {
 	return $people->get_person_meta($post->ID, 'website');
 }
 }
-
 ?>
