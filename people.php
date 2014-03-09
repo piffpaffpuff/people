@@ -37,7 +37,8 @@ class People {
 	public static $plugin_directory_path;
 	public static $plugin_basename;
 	public static $post_type;
-	public static $slug;
+
+	public $slug;
 	
 	/**
 	 * Constructor
@@ -178,30 +179,30 @@ class People {
 		);
 				
 		register_taxonomy($taxonomy_name, self::$post_type, $args);
-		
-		// Occupation
-		$taxonomy_name = self::$post_type . '_occupation';
+	
+		// Task
+		$taxonomy_name = self::$post_type . '_task';
 		
 		$labels = array(
-		    'name' => __('Occupations', 'people'),
-		    'singular_name' => __('Occupation', 'people'),
-		    'search_items' => __('Search Occupations', 'people'),
-		    'all_items' => __('All Occupations', 'people'),
-		    'parent_item' => __( 'Parent Occupations', 'people'),
-    		'parent_item_colon' => __( 'Parent Occupations:', 'people'),
-		    'edit_item' => __('Edit Occupation', 'people'),
-		    'update_item' => __('Update Occupation', 'people'),
-		    'add_new_item' => __('Add New Occupation', 'people'),
-		    'new_item_name' => __('New Occupation Name', 'people'),
-		    'separate_items_with_commas' => __('Separate Occupations with commas', 'people'),
-		    'add_or_remove_items' => __('Add or remove Occupations', 'people'),
-		    'choose_from_most_used' => __('Choose from the most used Occupations', 'people'),
-		    'menu_name' => __('Occupations', 'people')
+		    'name' => __('Tasks', 'people'),
+		    'singular_name' => __('Task', 'people'),
+		    'search_items' => __('Search Tasks', 'people'),
+		    'all_items' => __('All Tasks', 'people'),
+		    'parent_item' => __( 'Parent Tasks', 'people'),
+    		'parent_item_colon' => __( 'Parent Tasks:', 'people'),
+		    'edit_item' => __('Edit Task', 'people'),
+		    'update_item' => __('Update Task', 'people'),
+		    'add_new_item' => __('Add New Task', 'people'),
+		    'new_item_name' => __('New Task Name', 'people'),
+		    'separate_items_with_commas' => __('Separate Tasks with commas', 'people'),
+		    'add_or_remove_items' => __('Add or remove Tasks', 'people'),
+		    'choose_from_most_used' => __('Choose from the most used Tasks', 'people'),
+		    'menu_name' => __('Tasks', 'people')
 		);
 		
 		$args = array(
 			'labels' => $labels,
-	    	'rewrite' => array('slug' => $this->slug . '/' . self::$post_type . '-occupation', 'with_front' => true),
+	    	'rewrite' => array('slug' => $this->slug . '/' . self::$post_type . '-task', 'with_front' => true),
 	    	'hierarchical' => true,
 			'show_ui' => true
 		);
@@ -252,17 +253,18 @@ class People {
 		// Use nonce for verification
 		wp_nonce_field(self::$plugin_basename, 'people_nonce');
 		?>
-		<div>
-			<ul>
-			<input value="" type="hidden" name="people[relation]">
+		<input value="" type="hidden" name="people[relation]">
+		<ul>
+		<?php if(empty($people)) : ?>
+			<li><?php _e('No person found', 'people'); ?></li>
+		<?php else : ?>
 			<?php foreach($people as $person) : ?>
 				<li><label class="selectit"><input value="<?php echo $person->ID; ?>" type="checkbox" name="people[relation][]" <?php if(is_array($relation) && in_array($person->ID, $relation)) : ?> checked="checked"<?php endif; ?>><?php echo $person->post_title; ?></label></li>
 			<?php endforeach; ?>
-			</ul>
-		</div>
+		<?php endif; ?>
+		</ul>
 		<?php
 	}
-
 	
 	/**
 	 * Save the box data
@@ -406,10 +408,20 @@ function get_people($args = null) {
  * Get the ids of the people that are related to a post
  */
 if(!function_exists('get_related_people')) {
-function get_related_people() {
-	global $people, $post;
-	$relation = $people->get_person_meta($post->ID, 'relation');
-	
+function get_related_people($post_id = null) {
+	global $people;
+
+	// set a default post id
+	if(empty($post_id)) {
+		global $post;
+		if(empty($post)) {
+			return;
+		} else {
+			$post_id = $post->ID;
+		}
+	}
+	$relation = $people->get_person_meta($post_id, 'relation');
+
 	// Return when there is no meta for this post
 	if(empty($relation)) {
 		return;
@@ -424,8 +436,38 @@ function get_related_people() {
 }
 
 /**
+ * Shwo the people that are related to a post
+ */
+if(!function_exists('related_people')) {
+function related_people($link_type = null, $post_id = null) {
+	global $people;
+	$related_people = get_related_people($post_id);
+	?>
+	<?php if($related_people) : ?>
+		<ul class="people-list">
+		<?php foreach($related_people as $related_person) : ?>
+			<?php 
+				// get the url
+				if($link_type == 'permalink') {
+					$url = get_permalink($related_person->ID);
+				} elseif(!empty($link_type)) {
+					$url = $people->get_person_meta($related_person->ID, $link_type);
+				} else {
+					$url = null;
+				}
+			?>
+			<li><?php if(!empty($url)) : ?><a href="<?php echo $url; ?>"><?php endif; ?><?php echo $related_person->post_title; ?><?php if(!empty($url)) : ?></a><?php endif; ?></li>
+		<?php endforeach; ?>	
+		</ul>
+	<?php endif; ?>
+	<?php
+}
+}
+
+/**
  * Get people related to a post grouped by taxonomy
  */
+/*
 if(!function_exists('get_related_people_by_taxonomy')) {
 function get_related_people_by_taxonomy($taxonomy) {
 	global $people, $post;
@@ -465,11 +507,12 @@ function get_related_people_by_taxonomy($taxonomy) {
 	return $people_by_taxonomy;
 }
 }
-
+*/
 
 /**
  * Show people related to a post grouped by taxonomy
  */
+/*
 if(!function_exists('related_people_by_taxonomy')) {
 function related_people_by_taxonomy($taxonomy) {
 	$people_by_taxonomy = get_related_people_by_taxonomy($taxonomy);
@@ -490,6 +533,7 @@ function related_people_by_taxonomy($taxonomy) {
 	<?php
 }
 }
+*/
 
 /**
  * Get terms
