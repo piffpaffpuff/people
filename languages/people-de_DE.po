@@ -1,0 +1,191 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: People\n"
+"POT-Creation-Date: 2014-03-09 15:04+0100\n"
+"PO-Revision-Date: 2014-03-09 15:12+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.4\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e;_x\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../people.php:122 ../people.php:134 ../people.php:226
+msgid "People"
+msgstr "Personen"
+
+#: ../people.php:123
+msgid "Person"
+msgstr "Person"
+
+#: ../people.php:124
+msgid "Add New"
+msgstr "Erstellen"
+
+#: ../people.php:125
+msgid "Add New Person"
+msgstr "Neue Person erstellen"
+
+#: ../people.php:126
+msgid "Edit Person"
+msgstr "Person bearbeiten"
+
+#: ../people.php:127
+msgid "New Person"
+msgstr "Neue Person"
+
+#: ../people.php:128
+msgid "All People"
+msgstr "Alle Personen"
+
+#: ../people.php:129
+msgid "View Person"
+msgstr "Person ansehen"
+
+#: ../people.php:130
+msgid "Search People"
+msgstr "Personen durchsuchen"
+
+#: ../people.php:131 ../people.php:259
+msgid "No People found"
+msgstr "Keine Personen gefunden"
+
+#: ../people.php:132
+msgid "No People found in Trash"
+msgstr "Keine Personen im Papierkorb gefunden"
+
+#: ../people.php:158 ../people.php:171
+msgid "Professions"
+msgstr "Berufe"
+
+#: ../people.php:159
+msgid "Profession"
+msgstr "Beruf"
+
+#: ../people.php:160
+msgid "Search Professions"
+msgstr "Beruche durchsuchen"
+
+#: ../people.php:161
+msgid "All Professions"
+msgstr "Alle Berufe"
+
+#: ../people.php:162
+msgid "Parent Professions"
+msgstr "Übergeordnete Berufe"
+
+#: ../people.php:163
+msgid "Parent Professions:"
+msgstr "Übergeordnete Berufe:"
+
+#: ../people.php:164
+msgid "Edit Profession"
+msgstr "Beruf bearbeiten"
+
+#: ../people.php:165
+msgid "Update Profession"
+msgstr "Beruf aktualisieren"
+
+#: ../people.php:166
+msgid "Add New Profession"
+msgstr "Neuen Beruf erstellen"
+
+#: ../people.php:167
+msgid "New Profession Name"
+msgstr "Neuer Berufsname"
+
+#: ../people.php:168
+msgid "Separate Professions with commas"
+msgstr "Berufe mit Komma trennen"
+
+#: ../people.php:169
+msgid "Add or remove Professions"
+msgstr "Beruf hinzufügen oder entfernen"
+
+#: ../people.php:170
+msgid "Choose from the most used Professions"
+msgstr "Aus den meistbenutzten Berufen wählen"
+
+#: ../people.php:187 ../people.php:200
+msgid "Tasks"
+msgstr "Aufgaben"
+
+#: ../people.php:188
+msgid "Task"
+msgstr "Aufgabe"
+
+#: ../people.php:189
+msgid "Search Tasks"
+msgstr "Aufgaben durchsuchen"
+
+#: ../people.php:190
+msgid "All Tasks"
+msgstr "Alle Aufgaben"
+
+#: ../people.php:191
+msgid "Parent Tasks"
+msgstr "Übergeordnete Aufgabe"
+
+#: ../people.php:192
+msgid "Parent Tasks:"
+msgstr "Übergeordnete Aufgabe:"
+
+#: ../people.php:193
+msgid "Edit Task"
+msgstr "Aufgabe bearbeiten"
+
+#: ../people.php:194
+msgid "Update Task"
+msgstr "Aufgabe aktualisieren"
+
+#: ../people.php:195
+msgid "Add New Task"
+msgstr "Neue Aufgabe erstellen"
+
+#: ../people.php:196
+msgid "New Task Name"
+msgstr "Neuer Aufgabenname"
+
+#: ../people.php:197
+msgid "Separate Tasks with commas"
+msgstr "Aufgaben mit Komma trennen"
+
+#: ../people.php:198
+msgid "Add or remove Tasks"
+msgstr "Aufgabe hinzufügen oder entfernen"
+
+#: ../people.php:199
+msgid "Choose from the most used Tasks"
+msgstr "Aus den meistbenutzten Aufgaben wählen"
+
+#: ../people.php:217
+msgid "Information"
+msgstr "Information"
+
+#: ../people.php:237
+msgid "Telephone"
+msgstr "Telefon"
+
+#: ../people.php:238
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: ../people.php:239
+msgid "Facebook"
+msgstr ""
+
+#: ../people.php:240
+msgid "Twitter"
+msgstr ""
+
+#: ../people.php:241
+msgid "Website"
+msgstr "Webseite"
+
+#~ msgid "No person found"
+#~ msgstr "Keine Person gefunden"

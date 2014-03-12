@@ -256,7 +256,7 @@ class People {
 		<input value="" type="hidden" name="people[relation]">
 		<ul>
 		<?php if(empty($people)) : ?>
-			<li><?php _e('No person found', 'people'); ?></li>
+			<li><?php _e('No People found', 'people'); ?></li>
 		<?php else : ?>
 			<?php foreach($people as $person) : ?>
 				<li><label class="selectit"><input value="<?php echo $person->ID; ?>" type="checkbox" name="people[relation][]" <?php if(is_array($relation) && in_array($person->ID, $relation)) : ?> checked="checked"<?php endif; ?>><?php echo $person->post_title; ?></label></li>
